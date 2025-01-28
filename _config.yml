@@ -8,3 +8,8 @@ theme: jekyll-theme-minimal
 #   - 🌍 Geospatial Developer  
 #   - 🌲 Forest Ecology Enthusiast  
 #   - 📍 Based in XYZ
+
+
+include: ["_includes"]
+
+
