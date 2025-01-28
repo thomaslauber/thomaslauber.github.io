@@ -2,7 +2,9 @@ title: Thomas Lauber
 logo: /assets/img/profile_hex.png
 description: Geospatial Data Scientist | Ecologist
 # show_downloads: true
-theme: jekyll-theme-minimal
+# theme: jekyll-theme-minimal
+remote_theme: BDHU/minimalist
+
 
 # extra_info: |
 #   - 🌍 Geospatial Developer  
