@@ -10,18 +10,45 @@
 	<img src="{{ site.url }}/images/{{ author.avatar }}" class="bio-photo" alt="{{ author.name }} bio photo">
 {% endif %}
 
-  <h3 itemprop="name">{{ author.name }}</h3>
-  <p>{{ author.bio }}</p>
-  {% if author.email %}<a href="mailto:{{ author.email }}" class="author-social" target="_blank"><i class="fa fa-fw fa-envelope-square"></i> Email</a>{% endif %}
-  {% if author.linkedin %}<a href="https://www.linkedin.com/in/tom-lauber/" class="author-social" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>{% endif %}
-  {% if author.google.plus %}<a href="http://plus.google.com/+{{ author.google.plus }}" class="author-social" target="_blank"><i class="fa fa-fw fa-google-plus-square"></i> Google+</a>{% endif %}
-  {% if author.googlescholar %}<a href="https://scholar.google.com/citations?user={{ author.googlescholar }}" class="author-social" target="_blank"><i class="fa-brands fa-google-scholar"></i> Google Scholar</a>{% endif %}
-  {% if author.twitter %}<a href="https://x.com/{{ author.twitter }} class="author-social" target="_blank"><i class="fa fa-fw fa-twitter-square"></i> Twitter</a>{% endif %}
-  {% if author.instagram %}<a href="http://instagram.com/{{ author.instagram }}" class="author-social" target="_blank"><i class="fa fa-fw fa-instagram"></i> Instagram</a>{% endif %}
-  {% if author.github %}<a href="http://github.com/{{ author.github }}" class="author-social" target="_blank"><i class="fa-brands fa-github"></i> Github</a>{% endif %}
-  {% if author.stackoverflow %}<a href="http://stackoverflow.com/users/{{ author.stackoverflow }}" class="author-social" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i> Stackoverflow</a>{% endif %}
-  {% if author.medium %}<a href="http://medium.com/@{{ author.medium }}" class="author-social" target="_blank"><i class="fab fa-fw fa-medium-m"></i> Medium</a>{% endif %}
+<h3 itemprop="name">{{ author.name }}</h3>
+<p>{{ author.bio }}</p>
 
+<style>
+  .author-social {
+    display: inline-flex; /* Ensure icons and text are in line */
+    align-items: center;  /* Vertically center the icon with the text */
+    text-decoration: none; /* Remove underline */
+    font-size: 1.1em; /* Slightly larger icon if needed */
+    margin-right: 0.5em; /* Space between icon and text */
+  }
+
+  .author-social i {
+    margin-right: 0.3em; /* Add spacing between icon and text */
+    vertical-align: middle; /* Align with text baseline */
+    font-size: 1.2em; /* Adjust the icon size relative to text */
+  }
+
+  .author-social i.fa {
+    vertical-align: middle; /* Align with text baseline */
+  }
+
+  /* Optional: You can target individual icons if needed */
+  .author-social i.fa-twitter-square,
+  .author-social i.fa-linkedin,
+  .author-social i.fa-medium-m {
+    font-size: 1.2em; /* Adjust the icon size */
+  }
+</style>
+
+{% if author.email %}<a href="mailto:{{ author.email }}" class="author-social" target="_blank"><i class="fa fa-fw fa-envelope-square"></i> Email</a>{% endif %}
+{% if author.linkedin %}<a href="https://www.linkedin.com/in/tom-lauber/" class="author-social" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>{% endif %}
+{% if author.google.plus %}<a href="http://plus.google.com/+{{ author.google.plus }}" class="author-social" target="_blank"><i class="fa fa-fw fa-google-plus-square"></i> Google+</a>{% endif %}
+{% if author.googlescholar %}<a href="https://scholar.google.com/citations?user={{ author.googlescholar }}" class="author-social" target="_blank"><i class="fa-brands fa-google-scholar"></i> Google Scholar</a>{% endif %}
+{% if author.twitter %}<a href="https://x.com/{{ author.twitter }}" class="author-social" target="_blank"><i class="fa fa-fw fa-twitter-square"></i> Twitter</a>{% endif %}
+{% if author.instagram %}<a href="http://instagram.com/{{ author.instagram }}" class="author-social" target="_blank"><i class="fa fa-fw fa-instagram"></i> Instagram</a>{% endif %}
+{% if author.github %}<a href="http://github.com/{{ author.github }}" class="author-social" target="_blank"><i class="fa-brands fa-github"></i> Github</a>{% endif %}
+{% if author.stackoverflow %}<a href="http://stackoverflow.com/users/{{ author.stackoverflow }}" class="author-social" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i> Stackoverflow</a>{% endif %}
+{% if author.medium %}<a href="http://medium.com/@{{ author.medium }}" class="author-social" target="_blank"><i class="fab fa-fw fa-medium-m"></i> Medium</a>{% endif %}
   <!-- Mailing address 
   <br><h4>Mailing address</h4>Institute for Logic, Language and Computation<br>Universiteit van Amsterdam<br>P.O. Box 94242<br> 1090 GE AMSTERDAM<br>
   -->
