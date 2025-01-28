@@ -3,3 +3,8 @@ logo: /assets/img/profilePic.jpeg
 description: Geospatial Data Scientist | Ecologist
 # show_downloads: true
 theme: jekyll-theme-minimal
+
+extra_info: |
+  - 🌍 Geospatial Developer  
+  - 🌲 Forest Ecology Enthusiast  
+  - 📍 Based in XYZ
