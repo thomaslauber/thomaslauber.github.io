@@ -4,7 +4,9 @@
 ./_includes/_author-bio.html:  {% if author.twitter %}<a href="http://x.com/{{ author.twitter }}" class="author-social" target="_blank"><i class="fa fa-fw fa-twitter-square"></i> Twitter</a>{% endif %}
 ./_includes/_author-bio.html:  {% if author.facebook %}<a href="http://facebook.com/{{ author.facebook }}" class="author-social" target="_blank"><i class="fa fa-fw fa-facebook-square"></i> Facebook</a>{% endif %}
 ./_includes/_author-bio.html:  {% if author.google.plus %}<a href="http://plus.google.com/+{{ author.google.plus }}" class="author-social" target="_blank"><i class="fa fa-fw fa-google-plus-square"></i> Google+</a>{% endif %}
+./_includes/_author-bio.html:  {% if author.googlescholar %}<a href="https://scholar.google.com/citations?user=+{{ author.google.plus }}" class="author-social" target="_blank"><i class="fa-brands fa-google-scholar"></i> GoogleScholar</a>{% endif %}
 ./_includes/_author-bio.html:  {% if author.linkedin %}<a href="http://linkedin.com/in/{{ author.linkedin }}" class="author-social" target="_blank"><i class="fa fa-fw fa-linkedin-square"></i> LinkedIn</a>{% endif %}
+./_includes/_author-bio.html:  {% if author.medium %}<a href="http://medium.com/{{ author.medium }}" class="author-social" target="_blank"><i class="fa-brands fa-medium"></i> Medium</a>{% endif %}
 ./_includes/_author-bio.html:  {% if author.xing %}<a href="http://www.xing.com/profile/{{ author.xing }}" class="author-social" target="_blank"><i class="fa fa-fw fa-xing-square"></i> XING</a>{% endif %}
 ./_includes/_author-bio.html:  {% if author.instagram %}<a href="http://instagram.com/{{ author.instagram }}" class="author-social" target="_blank"><i class="fa fa-fw fa-instagram"></i> Instagram</a>{% endif %}
 ./_includes/_author-bio.html:  {% if author.tumblr %}<a href="http://{{ author.tumblr }}.tumblr.com" class="author-social" target="_blank"><i class="fa fa-fw fa-tumblr-square"></i> Tumblr</a>{% endif %}
