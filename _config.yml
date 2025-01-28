@@ -27,7 +27,7 @@ kramdown:
 # Site owner
 owner:
   name: Thomas Lauber
-  avatar: headshot_cropped.png
+  avatar: profile_hex.png
   bio: "Geospatial Data Scientist & Ecologist"
   # email: dieuwkehupkes@meta.com
   disqus-shortname: 
