@@ -4,6 +4,15 @@ title: About me
 excerpt: "A minimal Jekyll theme for your blog by designer Michael Rose."
 tags: [Jekyll, theme, responsive, blog, template]
 ---
+<style>
+  p {
+    text-indent: 0;
+  }
+
+  p + p {
+    margin-top: 0;
+  }
+</style>
 
 My name is Tom, and I am an ecologist who has always been captivated by the complexity and interconnectedness of nature. From a young age, I have been driven by a desire to understand the world around me: Why is that tree growing here? How did this landscape come to be? And what are the unseen forces that make this place so unique? These questions sparked my interest in environmental sciences and ultimately led me to pursue a career as a geospatial data scientist. Every day, I strive to explore the complexities of the natural world and to uncover insights that help protect the environment around us.
 <br><br>
