@@ -26,10 +26,10 @@ kramdown:
 
 # Site owner
 owner:
-  name: Dieuwke Hupkes
+  name: Thomas Lauber
   avatar: headshot_cropped.png
-  bio: "Research scientist at Meta, ELLIS Scholar"
-  email: dieuwkehupkes@meta.com
+  bio: "Geospatial Data Scientist & Ecologist"
+  # email: dieuwkehupkes@meta.com
   disqus-shortname: 
   google:
     plus: #username
@@ -38,11 +38,11 @@ owner:
     ad-client: 
     ad-slot: 
   bing-verify: 
-  github: dieuwkehupkes
+  github: thomaslauber
   stackoverflow: #http://stackoverflow.com/users/123456/username
-  linkedin:
-  instagram: dieuwkehupkes
-  twitter: _dieuwke_
+  linkedin: https://www.linkedin.com/in/tom-lauber/
+  # instagram: dieuwkehupkes
+  # twitter: _dieuwke_
   xing: #username
   lastfm: #username
   tumblr: #username
