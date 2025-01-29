@@ -11,9 +11,9 @@ I believe data should tell a story - one that is accessible, engaging and impact
 ## Restor 
 
 Everything started in 2019 when I was asked to create a quick data visualization for ecosystem restoration NGOs. I built a Google Earth Engine app to visualize different datasets, giving practitioners insights into the sites they manage. This sparked the idea of creating a larger product – a Google Maps for restoration.
-
+<br><br>
 I joined my team members at the Crowther Lab in early discussions with the Google Creative Lab, which ultimately led to the first version of the [Restor platform](https://restor.eco/). Today, [Restor](https://about.restor.eco/) connects over 200,000 sites and 20,000 users, bridging the gap between ecological data and on-the-ground restoration efforts.
-
+<br><br>
 <figure class="align-center">
   <img src="/images/AppForHomepage-1080.gif" alt="GEE App" class="full-width">
   <figcaption>An example Google Earth Engine App for a Restoration NGO. </figcaption>
@@ -21,8 +21,8 @@ I joined my team members at the Crowther Lab in early discussions with the Googl
 
 ## KEEP IT COO~2~L
 
-I was fortunate to be able to contribute to the center piece of the [*KEEP IT COO~2~L*](https://focusterra.ethz.ch/en/special-exhibitions/current.html) exhibition at FocusTerra, ETH Zurich's science museum. The installation is an interactive table that showcases the carbon storage potentials of ecosystems worldwide. Visitors are invited to play a [game](https://abovebelow.ethz.ch/animation) that lets them restore diverse ecosystems while learning about the challenges and opportunities for carbon removal. The initial development and ideation were done in collaboration with Interaction Design students from the Zurich University of Arts, and the final product was developed in partnership with FocusTerra, Lucid, Future Cities Laboratory, and myself. 
-
-<iframe src="https://player.vimeo.com/video/902888756?title=0&byline=0&portrait=0" width="800" height="auto" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-<figcaption>An example design developed during the course Data Visualization 23.</figcaption>
+I was fortunate to be able to contribute to the center piece of the [*KEEP IT COO~2~L*](https://focusterra.ethz.ch/en/special-exhibitions/current.html) exhibition at FocusTerra, ETH Zurich's science museum. The installation is an interactive table that showcases the carbon storage potentials of ecosystems worldwide. Visitors are invited to play a [game](https://abovebelow.ethz.ch/animation) that lets them restore diverse ecosystems while learning about the challenges and opportunities for carbon removal. The initial development and ideation were done in collaboration with Interaction Design students from the Zurich University of Arts (ZHDK), and the final product was developed in partnership with FocusTerra, Lucid, Future Cities Laboratory, and myself. 
+<br><br>
+<iframe src="https://player.vimeo.com/video/902888756?title=0&byline=0&portrait=0" width="100%" height="auto" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+<figcaption>An example design developed during the course Data Visualization 23 at ZHDK.</figcaption>
 
