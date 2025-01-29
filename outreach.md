@@ -27,12 +27,12 @@ I was fortunate to be able to contribute to the center piece of the [*KEEP IT CO
 
 <figure class="align-center">
     <iframe src="https://player.vimeo.com/video/902888756?title=0&byline=0&portrait=0" 
-            width="95%" 
-            height="auto" 
-            style="max-width: 800px; max-height: 450px; margin: 0 auto; display: block;"
+            width="800" 
+            height="450" 
+            style="max-width: 100%; height: auto; margin: 0 auto; display: block;"
             frameborder="0"
             allow="autoplay; fullscreen" 
             allowfullscreen>
     </iframe>
-  <figcaption style="margin-top: 0; font-size: 14px; color: #555; padding-top: 0;">An example design developed during the course Data Visualization 23 at ZHDK.</figcaption>
+  <figcaption>An example design developed during the course Data Visualization 23 at ZHDK.</figcaption>
 </figure>
