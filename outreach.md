@@ -20,9 +20,10 @@ I joined my team members at the Crowther Lab in early discussions with the Googl
 </figure> 
 
 ## KEEP IT COO<sub>2</sub>L
-
+<p>
 I was fortunate to be able to contribute to the center piece of the [*KEEP IT COO<sub>2</sub>L*](https://focusterra.ethz.ch/en/special-exhibitions/current.html) exhibition at FocusTerra, ETH Zurich's science museum. The installation is an interactive table that showcases the carbon storage potentials of ecosystems worldwide. Visitors are invited to play a [game](https://abovebelow.ethz.ch/animation) that lets them restore diverse ecosystems while learning about the challenges and opportunities for carbon removal. The initial development and ideation were done in collaboration with Interaction Design students from the Zurich University of Arts (ZHDK), and the final product was developed in partnership with FocusTerra, Lucid, Future Cities Laboratory, and myself. 
-<br><br>
+</p>
+    
 <figure style="text-align: center; margin: 0; padding: 0;">
     <iframe src="https://player.vimeo.com/video/902888756?title=0&byline=0&portrait=0" 
             width="100%" 
@@ -32,5 +33,5 @@ I was fortunate to be able to contribute to the center piece of the [*KEEP IT CO
             allow="autoplay; fullscreen" 
             allowfullscreen>
     </iframe>
-    <figcaption>An example design developed during the course Data Visualization 23 at ZHDK.</figcaption>
+  <figcaption style="margin-top: 0; font-size: 14px; color: #555; padding-top: 0;">An example design developed during the course Data Visualization 23 at ZHDK.</figcaption>
 </figure>
