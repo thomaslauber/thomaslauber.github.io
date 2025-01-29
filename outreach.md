@@ -6,7 +6,8 @@ tags: [Jekyll, theme, responsive, blog, template]
 ---
 
 
-I believe data should tell a story - one that is accessible, engaging and impactful, whether in a scientific publication or an art installation. A good story is a story that is easily understandable by everyone. My outreach work focuses on making geospatial and ecological data more intuituive and accessible for researchers, conservationists, and the public.  
+I believe data should tell a story - one that is accessible, engaging and impactful, whether in a scientific publication or an art installation. A good story is a story that is easily understandable by everyone. My outreach work focuses on making geospatial and ecological data more intuituive and accessible for researchers, conservationists, and the public.
+<br><br>
 
 ## Restor 
 
@@ -20,19 +21,32 @@ I joined my team members at the Crowther Lab in early discussions with the Googl
 </figure> 
 <br><br>
 
+
 ## KEEP IT COO<sub>2</sub>L
 
 I was fortunate to be able to contribute to the center piece of the [*KEEP IT COO<sub>2</sub>L*](https://focusterra.ethz.ch/en/special-exhibitions/current.html) exhibition at FocusTerra, ETH Zurich's science museum. The installation is an interactive table that showcases the carbon storage potentials of ecosystems worldwide. Visitors are invited to play a [game](https://abovebelow.ethz.ch/animation) that lets them restore diverse ecosystems while learning about the challenges and opportunities for carbon removal. The initial development and ideation were done in collaboration with Interaction Design students from the Zurich University of Arts (ZHDK), and the final product was developed in partnership with FocusTerra, Lucid, Future Cities Laboratory, and myself. 
 <br><br>
 
-<figure class="align-center">
+<figure class="align-center" style="border: none; padding: 0; text-align: center;">
     <iframe src="https://player.vimeo.com/video/902888756?title=0&byline=0&portrait=0" 
-            width="800" 
-            height="450" 
+            allow="autoplay; fullscreen" 
+            frameborder="0"
+            allowfullscreen>
+    </iframe>
+    <figcaption style="text-align: left">
+            An example design developed during the course Data Visualization 23 at ZHDK.
+    </figcaption>
+</figure>
+
+
+<!--<figure class="align-center">
+    <iframe src="https://player.vimeo.com/video/902888756?title=0&byline=0&portrait=0"
+            width="100%"
+            height="auto"
             style="max-width: 100%; height: auto; margin: 0 auto; display: block;"
             frameborder="0"
-            allow="autoplay; fullscreen" 
+            allow="autoplay; fullscreen"
             allowfullscreen>
     </iframe>
   <figcaption>An example design developed during the course Data Visualization 23 at ZHDK.</figcaption>
-</figure>
+</figure> -->
