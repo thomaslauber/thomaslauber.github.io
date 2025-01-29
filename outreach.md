@@ -15,7 +15,7 @@ Everything started in 2019 when I was asked to create a quick data visualization
 I joined my team members at the Crowther Lab in early discussions with the Google Creative Lab, which ultimately led to the first version of the [Restor platform](https://restor.eco/). Today, [Restor](https://about.restor.eco/) connects over 200,000 sites and 20,000 users, bridging the gap between ecological data and on-the-ground restoration efforts.
 <br><br>
 <figure class="align-center">
-  <img src="/images/AppForHomepage-1080.gif" alt="GEE App" class="full-width">
+  <img src="/images/GEE_App.png" alt="GEE App" class="full-width">
   <figcaption>An example Google Earth Engine App for a Restoration NGO. </figcaption>
 </figure> 
 
