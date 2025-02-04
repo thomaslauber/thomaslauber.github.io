@@ -23,8 +23,7 @@ My research covers topics such as:
 
 My full publication record can be found on [Google Scholar](https://scholar.google.com/citations?user=RY_VPNUAAAAJ&hl=en).
 <br><br>
-
-### In prep
+Publications **in prep** are:
 * Bialic-Murphy, L., van Galen, L.G., Kivlin, S.N., Lauber, T., ... & Crowther, T.W. [Fungal diversity–plant productivity relationships in the Anthropocene](#).
 * Van Nuland, M.E., Averill, C., Stewart, J.D., Prylutskyi, O., ... Lauber, T., ... & van den Hoogen, J. [Global Hotspots of Mycorrhizal Fungal Richness are Poorly Protected](#).
 * Specker, F., Schweiger, A.K., Féret, J.-B., Lauber, T., Crowther, T.W., van den Hoogen, J. [Advancing Ecosystem Monitoring: Global High-resolution Maps of Biophysical Vegetation Properties](#).
