@@ -24,6 +24,20 @@ My research covers topics such as:
 My full publication record can be found on [Google Scholar](https://scholar.google.com/citations?user=RY_VPNUAAAAJ&hl=en).
 <br><br>
 
+### In prep
+* Bialic-Murphy, L., van Galen, L.G., Kivlin, S.N., Lauber, T., ... & Crowther, T.W. [Fungal diversity–plant productivity relationships in the Anthropocene](#).
+* Van Nuland, M.E., Averill, C., Stewart, J.D., Prylutskyi, O., ... Lauber, T., ... & van den Hoogen, J. [Global Hotspots of Mycorrhizal Fungal Richness are Poorly Protected](#).
+* Specker, F., Schweiger, A.K., Féret, J.-B., Lauber, T., Crowther, T.W., van den Hoogen, J. [Advancing Ecosystem Monitoring: Global High-resolution Maps of Biophysical Vegetation Properties](#).
+* Zou, Y., Crowther, T.W., Smith, G.R., Ma, H., ... Lauber, T., ... & Zohner, C.M. [Forest fragmentation increased in half of global forests during the last twenty years](#).
+* Zou, Y., Smith, G.R., Lauber, T., Zohner, C.M., ... & Crowther, T.W. [Superlinear scaling of productivity with patch size across American forests](#).
+* Reek, J.E., Crowther, T.W., Lauber, T., Schemm, S., ... & Smith, G.R. [Temperatures at global forest edges are too high for optimal vegetation productivity](#).
+* Charlesworth, T.E.S., Werden, L.K., van den Hoogen, J., Vlasceanu, M., Lauber, T., Crowther, T.W. (2025). [Language Reveals Global Links Between Nature Attitudes and Sustainable Development](#).
+* Greenwood, E.E., Freymond, M., Scheidegger, A., Lauber, T. ... & Julian, T.R. [Effect of using safely managed drinking water services on child diarrhoea](#).
+
+<br><br>
+
+
+
 ## SEED Index
 
 <div style="float: right; width: 300px; height: auto; margin-left: 15px;">
