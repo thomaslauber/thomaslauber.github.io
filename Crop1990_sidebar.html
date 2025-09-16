@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_4c5e19db0e019dfc61a42a928fa4f88e {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;           /* width of sidebar */
+    background-color: white;
+    border-right: 2px solid grey;
+    padding: 10px;
+    overflow-y: auto;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+">
+    <!-- Logos stacked -->
+    <div style="display:flex; flex-direction: column; align-items: flex-start; gap:5px; margin-bottom:100px;">
+        <img src="https://novanimal.ch/wp-content/uploads/2017/07/agroscope_540x248.png" alt="Logo1" height="100">
+        <img src="https://www.eoa-team.net/wp-content/uploads/2022/11/EOA_logo_no_text_alpha-1-e1667599025117.png" alt="Logo2" height="30" style="margin-left:40px;">
+    </div>
+
+    <!-- Legend title -->
+    <div style="font-weight:bold; font-size:18px; margin-bottom:8px;">Legends</div>
+
+    <!-- Crop items -->
+    <div style="font-weight:bold; margin-bottom:8px;"> Crop classes </div>
+    
+<style>
+  .legend-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+  }
+  .color-box {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+    border: 1px solid #666;
+  }
+</style>
+<div class="legend-vertical">
+<div class="legend-item"><div class="color-box" style="background:#fff1b6"></div>1. SummerBarley</div>
+<div class="legend-item"><div class="color-box" style="background:#fceda4"></div>2. WinterBarley</div>
+<div class="legend-item"><div class="color-box" style="background:#fae992"></div>3. Oat</div>
+<div class="legend-item"><div class="color-box" style="background:#f7e580"></div>4. Wheat</div>
+<div class="legend-item"><div class="color-box" style="background:#f5e16d"></div>5. Grain</div>
+<div class="legend-item"><div class="color-box" style="background:#ff9966"></div>6. Maize</div>
+<div class="legend-item"><div class="color-box" style="background:#f2dc5b"></div>7. EinkornWheat</div>
+<div class="legend-item"><div class="color-box" style="background:#efd849"></div>8. SummerWheat</div>
+<div class="legend-item"><div class="color-box" style="background:#edd436"></div>9. WinterWheat</div>
+<div class="legend-item"><div class="color-box" style="background:#ead024"></div>10. Rye</div>
+<div class="legend-item"><div class="color-box" style="background:#e8cc12"></div>11. Spelt</div>
+<div class="legend-item"><div class="color-box" style="background:#ff99cc"></div>12. Sugar_beets</div>
+<div class="legend-item"><div class="color-box" style="background:#fb8ec5"></div>13. Beets</div>
+<div class="legend-item"><div class="color-box" style="background:#f883be"></div>14. Potatoes</div>
+<div class="legend-item"><div class="color-box" style="background:#f479b6"></div>15. SummerRapeseed</div>
+<div class="legend-item"><div class="color-box" style="background:#f06daf"></div>16. WinterRapeseed</div>
+<div class="legend-item"><div class="color-box" style="background:#ed62a8"></div>17. Soy</div>
+<div class="legend-item"><div class="color-box" style="background:#e958a0"></div>18. Sunflowers</div>
+<div class="legend-item"><div class="color-box" style="background:#e54c99"></div>19. Linen</div>
+<div class="legend-item"><div class="color-box" style="background:#e24192"></div>20. Hemp</div>
+<div class="legend-item"><div class="color-box" style="background:#de378a"></div>21. Field bean</div>
+<div class="legend-item"><div class="color-box" style="background:#db2c83"></div>22. Peas</div>
+<div class="legend-item"><div class="color-box" style="background:#d7207c"></div>23. Lupine</div>
+<div class="legend-item"><div class="color-box" style="background:#99ffcc"></div>24. Pumpkin</div>
+<div class="legend-item"><div class="color-box" style="background:#d31674"></div>25. Tobacco</div>
+<div class="legend-item"><div class="color-box" style="background:#cc3300"></div>26. Sorghum</div>
+<div class="legend-item"><div class="color-box" style="background:#66cc99"></div>27. Vegetables</div>
+<div class="legend-item"><div class="color-box" style="background:#339966"></div>28. Chicory</div>
+<div class="legend-item"><div class="color-box" style="background:#e5c800"></div>29. Buckwheat</div>
+<div class="legend-item"><div class="color-box" style="background:#6699ff"></div>30. Berries</div>
+<div class="legend-item"><div class="color-box" style="background:#dddddd"></div>31. NaN</div>
+<div class="legend-item"><div class="color-box" style="background:#b3ffb3"></div>32. Biodiversity encouragement area</div>
+<div class="legend-item"><div class="color-box" style="background:#77cc77"></div>33. Fallow</div>
+<div class="legend-item"><div class="color-box" style="background:#4c7ff2"></div>34. MixedCrop</div>
+<div class="legend-item"><div class="color-box" style="background:#d00b6d"></div>35. Mustard</div>
+<div class="legend-item"><div class="color-box" style="background:#3c993c"></div>36. Meadow</div>
+<div class="legend-item"><div class="color-box" style="background:#006600"></div>37. Pasture</div>
+<div class="legend-item"><div class="color-box" style="background:#cc0066"></div>38. Legumes</div>
+<div class="legend-item"><div class="color-box" style="background:#9966cc"></div>39. Vines</div>
+<div class="legend-item"><div class="color-box" style="background:#ff9999"></div>40. Apples</div>
+<div class="legend-item"><div class="color-box" style="background:#f27373"></div>41. Pears</div>
+<div class="legend-item"><div class="color-box" style="background:#e54c4c"></div>42. StoneFruit</div>
+<div class="legend-item"><div class="color-box" style="background:#330099"></div>43. Hops</div>
+<div class="legend-item"><div class="color-box" style="background:#d92626"></div>44. TreeCrop</div>
+<div class="legend-item"><div class="color-box" style="background:#cc0000"></div>45. Chestnut</div>
+<div class="legend-item"><div class="color-box" style="background:#3366e5"></div>46. Special cultures</div>
+<div class="legend-item"><div class="color-box" style="background:#194cd9"></div>47. Hedge</div>
+<div class="legend-item"><div class="color-box" style="background:#aeaeae"></div>48. Multiple</div>
+<div class="legend-item"><div class="color-box" style="background:#7f7f7f"></div>49. Forest</div>
+<div class="legend-item"><div class="color-box" style="background:#505050"></div>50. Non agriculture</div>
+<div class="legend-item"><div class="color-box" style="background:#222222"></div>51. Waters</div>
+<div class="legend-item"><div class="color-box" style="background:#0033cc"></div>52. Gardens</div>
+</div>  <!-- your 52-class legend goes here -->
+
+    <!-- Uncertainty items -->
+    <div style="margin-top:20px; font-weight:bold; font-size:14px;">Uncertainty</div>
+    
+<div style="width:220px;">  <!-- container for gradient + labels -->
+    <!-- Gradient box -->
+    <div style="
+        width: 100%;
+        height: 20px;
+        background: linear-gradient(to left, #FCFDBF,#F4E190,#EDA766,#E17855,#D2514A,#BA2E44,#9D1E3B,#701838,#2B0A3F);
+        border: 1px solid #666;
+        margin-top:5px;
+    "></div>
+
+    <!-- Labels below -->
+    <div style="
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        margin-top:2px;
+    ">
+        <span>0%</span>
+        <span>100%</span>
+    </div>
+</div>
+
+
+    <!-- Error items -->
+    <div style="font-weight:bold; margin-top:20px; margin-bottom:8px;"> Error </div>
+    
+<div style="display:flex; flex-direction:column; gap:4px;">
+<div style="display:flex; align-items:center;"><div style="width:20px; height:20px; margin-right:6px; border:1px solid #666; background:#228833"></div>Right</div>
+<div style="display:flex; align-items:center;"><div style="width:20px; height:20px; margin-right:6px; border:1px solid #666; background:#AA3377"></div>Wrong</div>
+</div>
+
+</div>
+    
+<style>
+    #map {
+        position: absolute;
+        top: 0;
+        left: 300px;   /* same as sidebar width */
+        right: 0;
+        bottom: 0;
+    }
+</style>
+    
+            <div class="folium-map" id="map_4c5e19db0e019dfc61a42a928fa4f88e" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_4c5e19db0e019dfc61a42a928fa4f88e = L.map(
+                "map_4c5e19db0e019dfc61a42a928fa4f88e",
+                {
+                    center: [46.768971, 7.106622],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 15,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_01ca0a809b486994d4bdab357d8f03c9 = L.tileLayer(
+                "https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "swisstopo",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_01ca0a809b486994d4bdab357d8f03c9.addTo(map_4c5e19db0e019dfc61a42a928fa4f88e);
+        
+    
+            var tile_layer_1e5c2ddabbaf520b9b5a4064509d8b53 = L.tileLayer(
+                "https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.swissimage/default/current/3857/{z}/{x}/{y}.jpeg",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "swisstopo",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_1e5c2ddabbaf520b9b5a4064509d8b53.addTo(map_4c5e19db0e019dfc61a42a928fa4f88e);
+        
+    
+            var tile_layer_2d9ddf0dc4ca399acb989b65b9573825 = L.tileLayer(
+                "https://earthengine.googleapis.com/v1/projects/gem-eth-analysis/maps/875646b88e9f96dda2e1f4486c9ed1d7-3c9464630bfcd4ca0e295d9091bc9156/tiles/{z}/{x}/{y}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Google Earth Engine",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_2d9ddf0dc4ca399acb989b65b9573825.addTo(map_4c5e19db0e019dfc61a42a928fa4f88e);
+        
+    
+            var tile_layer_2e06e76b3f31ad4999fd2d0b37a0209e = L.tileLayer(
+                "https://earthengine.googleapis.com/v1/projects/gem-eth-analysis/maps/f53e6f60da04e1dd1fddd5b04b4160ef-ce1e97929053a82c56f28312460bd8be/tiles/{z}/{x}/{y}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Google Earth Engine",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            var tile_layer_c74f04092ad9854eb92555dda3a017b5 = L.tileLayer(
+                "https://earthengine.googleapis.com/v1/projects/gem-eth-analysis/maps/cf4e856f00558da6051b9555daa66e81-18f9caa0500aa3fb870d7e5285c9d407/tiles/{z}/{x}/{y}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Google Earth Engine",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            var tile_layer_c7f686846d282f1f461d362d0209eb4e = L.tileLayer(
+                "https://earthengine.googleapis.com/v1/projects/gem-eth-analysis/maps/39f0a3beede7e0d3f7dfc7499702f448-8fd7091d65dd28f3208f995658b7c8b2/tiles/{z}/{x}/{y}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Google Earth Engine",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            var tile_layer_6c31c80df5206932483a1eb049ffbb35 = L.tileLayer(
+                "https://earthengine.googleapis.com/v1/projects/gem-eth-analysis/maps/180c66cc40c5e24488daf12f22cca4ce-76921e0c7a592f97d3d3b2a06670be22/tiles/{z}/{x}/{y}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Google Earth Engine",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            var layer_control_f3bf148260eeb47e7a62b605806fcad3_layers = {
+                base_layers : {
+                },
+                overlays :  {
+                    "SwissImage" : tile_layer_1e5c2ddabbaf520b9b5a4064509d8b53,
+                    "Prediction" : tile_layer_2d9ddf0dc4ca399acb989b65b9573825,
+                    "Uncertainty" : tile_layer_2e06e76b3f31ad4999fd2d0b37a0209e,
+                    "Error" : tile_layer_c74f04092ad9854eb92555dda3a017b5,
+                    "Ground Truth" : tile_layer_c7f686846d282f1f461d362d0209eb4e,
+                    "Errors 250m" : tile_layer_6c31c80df5206932483a1eb049ffbb35,
+                },
+            };
+            let layer_control_f3bf148260eeb47e7a62b605806fcad3 = L.control.layers(
+                layer_control_f3bf148260eeb47e7a62b605806fcad3_layers.base_layers,
+                layer_control_f3bf148260eeb47e7a62b605806fcad3_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_4c5e19db0e019dfc61a42a928fa4f88e);
+
+        
+</script>
+</html>
