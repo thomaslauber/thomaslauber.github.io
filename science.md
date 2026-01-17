@@ -11,9 +11,11 @@ I am an ecologist and data scientist dedicated to understanding how nature works
 ## Research
 
 I am currently a remote sensing researcher at <a href="https://www.agroscope.admin.ch/agroscope/de/home.html" target="_blank">Agroscope</a>, the Swiss Confederation’s center of excellence for agricultural research. Here, I generate annual crop type and grassland intensity maps for Switzerland from 1990 to the present, combining state-of-the-art deep learning with temperature-aware subsampling of Sentinel-2 and Landsat imagery. These maps are designed to be actionable and feed directly into the Swiss National Greenhouse Gas Inventory. As such, the maps have been rigorously validated and checked for temporal consitency. 
+<br><br>
 
 Prior to this, I worked as a data scientist in the interdisciplinary <a href="https://crowtherlab.com/" target="_blank">Crowther Lab</a> at ETH Zurich, where I facilitated and accelerated the research of the group. I built geospatial mapping pipelines, developed global forest patch delineation algorithms, and curated hundreds of analysis-ready datasets. The best part of my work was when someone came to me with an audacious idea, and together we were able to bring it to life.
 <br><br>
+
 My research covers topics such as: 
 - Mapping cropland types and grassland intensity classes using Landsat and Sentinel2,
 - The effect of forest fragmentation and degradation on agricultural yield and ecosystem productivity, 
