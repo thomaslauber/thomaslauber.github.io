@@ -6,8 +6,10 @@ tags: [Jekyll, theme, responsive, blog, template]
 ---
 
 My name is Tom, and I am an ecologist who has always been captivated by the complexity and interconnectedness of nature. From a young age, I have been driven by a desire to understand the world around me: Why is that tree growing here? How did this landscape come to be? And what are the unseen forces that make this place so unique? These questions sparked my interest in environmental sciences and ultimately led me to pursue a career as a geospatial data scientist. Every day, I strive to explore the complexities of the natural world and to uncover insights that help protect the environment around us.
+<br><br>
 
 I am currently a remote sensing researcher at <a href="https://www.agroscope.admin.ch/agroscope/de/home.html" target="_blank">Agroscope</a> - the Swiss Confederation's center of excellence for agricultural research - where I develop annual crop type and grassland intensity maps for the Swiss agricultural landscape. My work combines state-of-the-art deep learning models with temperature-aware subsampling of Sentinel-2 and Landsat imagery to generate consistent predictions from 1990 to the present, for application in the Swiss National Greenhouse Gas Inventory. 
+<br><br>
 
 Prior to that, I worked as a data scientist in the <a href="https://crowtherlab.com/" target="_blank">Crowther Lab</a> at ETH Zurich, where my role was to facilitate and accelerate the group’s research. I supported colleagues with data and programming challenges and helped turn ambitious ideas into working analyses, including building geospatial pipelines in Google Earth Engine and Python, developing global forest mapping algorithms at 30 m resolution, and curating over 400 analysis-ready global nature datasets.
 
