@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crop and Grassland Maps of Switzerland</title>
+<meta name="description" content="Annual crop and grassland maps of Switzerland, 1985–2025, from Landsat and Sentinel-2.">
+<script>
+  // Theme before first paint: saved choice, else the system setting.
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('cropmap.theme'); } catch (e) { /* not critical */ }
+    if (t !== 'dark' && t !== 'light') t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@10.2.1/ol.css">
+<style>
+  :root {
+    --red: #DC0018; --red-dark: #A80012; --ink: #1d1d1b; --muted: #6b6b66; --line: #e5e4df;
+    --bg: #ffffff; --map: #eeede8; --panel: rgba(255,255,255,0.97); --dark: #1f1f1d;
+    --shadow: 0 2px 10px rgba(0,0,0,.18);
+    --hover: #f4f3ef; --hover2: #e9e8e3; --sel: #fdecee; --line2: #c9c8c2; --on-ink: #fff;
+    --tl-border: transparent; color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    --ink: #ecebe6; --muted: #a3a29b; --line: #3a3a36;
+    --bg: #1c1c1b; --map: #121211; --panel: rgba(36,36,34,0.97); --dark: #262624;
+    --shadow: 0 2px 12px rgba(0,0,0,.55);
+    --hover: #2a2a28; --hover2: #353532; --sel: #3d1a1f; --line2: #55554f; --on-ink: #1c1c1b;
+    --tl-border: #3a3a36; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink);
+    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; }
+  button { font: inherit; color: inherit; }
+  a { color: var(--red); }
+  #app { display: grid; grid-template-rows: auto 1fr; height: 100%; }
+
+  /* ---- Layout: information panel on the left, map to the top edge ---- */
+  .aboutBtn, .themeBtn, #legendBtn { cursor: pointer; }
+  .themeBtn { border: 1px solid var(--line); background: var(--bg); border-radius: 999px; width: 32px; height: 32px;
+    padding: 0; display: grid; place-items: center; color: var(--ink); flex: none; }
+  .themeBtn:hover { border-color: var(--red); color: var(--red); }
+  .themeBtn svg { width: 16px; height: 16px; display: block; }
+  .themeBtn .moon, :root[data-theme="dark"] .themeBtn .sun { display: none; }
+  :root[data-theme="dark"] .themeBtn .moon { display: block; }
+  /* Dark mode: logos with white (negative) lettering. Agroscope: coat of arms unchanged
+     (CD Bund, "Anwendung auf Farbe"); EOA: the globe keeps its colours. */
+  :root:not([data-theme="dark"]) .logo-dark, :root[data-theme="dark"] .logo-light { display: none !important; }
+
+  #brand { padding: 22px 20px 14px; border-bottom: 1px solid var(--line); flex: none; }
+  #brand h1 { margin: 0; font-size: 24px; line-height: 1.12; font-weight: 800; letter-spacing: -.02em; }
+  #brand .sub { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  #brand .links { display: flex; align-items: center; gap: 16px; margin-top: 12px; }
+  #brand .links a, #brand .links .aboutBtn { border: 0; background: none; padding: 0; font-size: 13px; font-weight: 650;
+    color: var(--ink); text-decoration: none; }
+  #brand .links a:hover, #brand .links .aboutBtn:hover { color: var(--red); }
+  #brand .links .themeBtn { margin-left: auto; }
+
+  #panelFoot { flex: none; border-top: 1px solid var(--line); padding: 12px 20px 14px; display: flex; flex-direction: column;
+    align-items: flex-start; gap: 10px; }
+  #panelFoot img { display: block; }
+  #panelFoot .eoa { height: 28px; }
+  #panelFoot .agro { height: 38px; }
+
+  /* Phones only: slim top bar (the panel becomes a drawer). */
+  #topbar { display: none; align-items: center; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--line);
+    background: var(--bg); position: relative; z-index: 20; }
+  #topbar h1 { flex: 1; min-width: 0; margin: 0; font-size: 15px; line-height: 1.15; font-weight: 800; letter-spacing: -.01em; }
+  #topbar nav { display: flex; gap: 4px; flex: none; }
+  #topbar nav button.txt { border: 1px solid var(--line); background: var(--bg); border-radius: 999px; padding: 5px 10px;
+    font-size: 12px; font-weight: 600; color: var(--ink); }
+  #topbar img { height: 30px; display: block; flex: none; }
+
+  #main { display: flex; min-height: 0; grid-row: 2; }
+
+  /* ---- Legend panel ---- */
+  #sidebar { width: 312px; flex: none; display: flex; flex-direction: column; min-height: 0;
+    border-right: 1px solid var(--line); background: var(--bg); }
+  #areaBox { position: relative; z-index: 3; background: var(--bg); padding: 14px 20px 10px;
+    border-bottom: 1px solid var(--line); height: 196px; flex: none; }
+  #legendScroll { flex: 1; min-height: 0; overflow-y: auto; }
+  #areaBox .title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  #areaChart { display: block; width: 100%; height: 140px; }
+  #areaChart { cursor: crosshair; }
+  #areaTip { position: absolute; z-index: 4; display: none; pointer-events: none; background: var(--panel); color: var(--ink);
+    border-radius: 8px; box-shadow: var(--shadow); padding: 7px 9px; font-size: 11px; line-height: 1.35; width: 172px; }
+  #areaTip .yr { font-weight: 800; font-size: 13px; }
+  #areaTip .yr span { font-weight: 400; font-size: 10px; color: var(--muted); margin-left: 4px; }
+  #areaTip .row { display: flex; align-items: center; gap: 6px; }
+  #areaTip .row .n { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #areaTip .row .v { font-variant-numeric: tabular-nums; }
+  #areaTip .row .sw { width: 9px; height: 9px; border-radius: 2px; }
+  #areaTip .row.hi { font-weight: 700; }
+  #areaTip .tot { border-top: 1px solid var(--line); margin-top: 3px; padding-top: 2px; color: var(--muted); }
+  #areaHint { height: 140px; display: flex; align-items: center; justify-content: center; text-align: center;
+    color: var(--muted); font-size: 13px; padding: 0 12px; border: 1px dashed var(--line); border-radius: 8px; margin-top: 6px; }
+  #areaBox .key { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #legendHead { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px 4px; }
+  #legendHead h2 { margin: 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  #legendHead .actions button { border: 0; background: none; color: var(--red); cursor: pointer; font-size: 12px; font-weight: 600; padding: 2px 4px; }
+  #legend { padding: 0 12px 16px; }
+  .group { margin-top: 2px; }
+  .ghead { display: flex; align-items: center; gap: 6px; padding: 5px 8px; border-radius: 6px; cursor: pointer; user-select: none; }
+  .ghead:hover { background: var(--hover); }
+  .ghead .chev { border: 0; background: none; width: 20px; height: 20px; padding: 0; cursor: pointer; color: var(--muted);
+    border-radius: 4px; transition: transform .15s; flex: none; }
+  .ghead .chev:hover { background: var(--hover2); color: var(--ink); }
+  .group.collapsed .chev { transform: rotate(-90deg); }
+  .ghead .gname { font-weight: 700; font-size: 13px; flex: 1; }
+  .ghead .gcount { font-size: 11px; color: var(--muted); }
+  .ghead .sw { display: none; }
+  .group.collapsed .ghead .sw { display: block; }
+  .group.collapsed .gbody { display: none; }
+  .item { display: flex; align-items: center; gap: 9px; font-size: 13px; padding: 3px 8px 3px 34px; border-radius: 6px;
+    cursor: pointer; user-select: none; }
+  .item:hover { background: var(--hover); }
+  .sw { width: 14px; height: 14px; border-radius: 3px; flex: none; border: 1px solid rgba(0,0,0,.2); }
+  #legend.filtering .item:not(.on), #legend.filtering .group.collapsed:not(.on) .ghead { opacity: .38; }
+  .item.on, .group.on > .ghead { background: var(--sel); box-shadow: inset 3px 0 0 var(--red); }
+
+  /* ---- Map and overlays ---- */
+  #map { flex: 1; position: relative; background: var(--map); }
+  .card { position: absolute; z-index: 5; background: var(--panel); border-radius: 10px; box-shadow: var(--shadow); }
+  #search { top: 12px; left: 12px; width: min(340px, calc(100% - 24px)); }
+  #searchInput { width: 100%; border: 0; background: transparent; color: var(--ink); padding: 11px 14px 11px 38px; font: inherit; border-radius: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%236b6b66' stroke-width='2'%3E%3Ccircle cx='7' cy='7' r='5'/%3E%3Cpath d='m11 11 4 4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: 13px center; }
+  #searchInput:focus { outline: 2px solid var(--red); outline-offset: -2px; }
+  #searchResults { display: none; border-top: 1px solid var(--line); padding: 4px 0; }
+  #searchResults div { padding: 7px 14px; cursor: pointer; font-size: 13px; }
+  #searchResults div:hover { background: var(--sel); }
+  .ol-zoom { top: 64px; left: 12px; background: none; }
+  .ol-zoom button { background: var(--panel) !important; color: var(--ink) !important; box-shadow: var(--shadow);
+    width: 34px !important; height: 34px !important; font-size: 18px !important; border-radius: 8px !important; margin: 0 0 4px !important; }
+
+  #layerCtl { top: 12px; right: 12px; padding: 12px; width: 236px; font-size: 12px; }
+  #layerCtl .lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 6px; }
+  .seg { display: grid; gap: 4px; margin-bottom: 10px; }
+  .seg.two { grid-template-columns: 1fr 1fr; }
+  .seg button { border: 1px solid var(--line); background: var(--bg); border-radius: 6px; padding: 6px 4px; cursor: pointer; font-size: 12px; font-weight: 600; }
+  .seg button:hover { border-color: var(--line2); }
+  .seg button.on { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
+  #confLegend { display: none; margin: -4px 0 10px; }
+  #confLegend .bar { height: 8px; border-radius: 4px; background: linear-gradient(to right, #000, #fff); border: 1px solid rgba(0,0,0,.2); }
+  #confLegend .ends { display: flex; justify-content: space-between; color: var(--muted); font-size: 10px; }
+  #layerCtl .op { display: flex; align-items: center; gap: 8px; }
+  #opacity { flex: 1; accent-color: var(--red); }
+
+  /* ---- Timeline ---- */
+  #timeline { left: 12px; right: 12px; bottom: 12px; background: var(--dark); color: #fff; border: 1px solid var(--tl-border); padding: 12px 18px 8px 14px;
+    display: flex; align-items: center; gap: 16px; }
+  #play { width: 46px; height: 46px; flex: none; border-radius: 50%; border: 0; cursor: pointer; background: var(--red);
+    color: #fff; display: grid; place-items: center; box-shadow: 0 0 0 4px rgba(220,0,24,.25); }
+  #play:hover { background: #f0001c; }
+  #play svg { width: 18px; height: 18px; fill: #fff; }
+  #yearBox { width: 132px; flex: none; }
+  #yearLabel { font-size: 30px; font-weight: 800; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  #sensorLabel { font-size: 12px; color: #b9b8b2; margin-top: 3px; white-space: nowrap; }
+  #track { flex: 1; position: relative; height: 54px; cursor: pointer; touch-action: none; outline: none; }
+  #track:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; border-radius: 4px; }
+  #rail { position: absolute; left: 0; right: 0; top: 12px; height: 4px; border-radius: 2px; background: #4a4a46; }
+  #fill { position: absolute; left: 0; top: 12px; height: 4px; border-radius: 2px; background: var(--red); }
+  .tick { position: absolute; top: 9px; width: 1px; height: 10px; background: rgba(255,255,255,.28); }
+  .tick.major { height: 14px; top: 7px; background: rgba(255,255,255,.6); }
+  .tlabel { position: absolute; top: 24px; transform: translateX(-50%); font-size: 11px; color: #b9b8b2; font-variant-numeric: tabular-nums; }
+  #handle { position: absolute; top: 5px; width: 18px; height: 18px; margin-left: -9px; border-radius: 50%; background: var(--red);
+    border: 3px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.5); pointer-events: none; }
+  .band { position: absolute; top: 42px; height: 10px; font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    line-height: 10px; padding-left: 6px; border-left: 1px solid; overflow: hidden; white-space: nowrap; }
+  #bandL { color: #9c9b95; border-color: #6b6b66; }
+  #bandS { color: #ff8a96; border-color: var(--red); }
+  #credits { margin-top: 10px; font-size: 10px; color: var(--muted); }
+  #credits a { color: var(--muted); }
+  #layersBtn { display: none; }
+
+  /* ---- Pixel card ---- */
+  #pixelCard { right: 12px; bottom: 104px; width: 344px; padding: 12px 14px 10px; display: none; }
+  #pixelCard .top { display: flex; align-items: center; justify-content: space-between; }
+  #pixelCard .lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  #pixelCard .close { border: 0; background: none; font-size: 20px; line-height: 1; color: var(--muted); cursor: pointer; padding: 0 2px; }
+  #pixelCard .head { display: flex; gap: 10px; align-items: center; margin: 8px 0 4px; min-height: 40px; }
+  #pixelCard .head .sw { width: 26px; height: 26px; border-radius: 6px; }
+  #pixelCard .head b { font-size: 15px; }
+  #pixelCard .muted { color: var(--muted); font-size: 12px; }
+  #pixelCard .strip { display: flex; gap: 1px; margin: 8px 0 2px; height: 22px; }
+  #pixelCard .strip span { flex: 1; border-radius: 1px; cursor: pointer; background: var(--hover2); }
+  #pixelCard .strip span.cur { outline: 2px solid var(--ink); outline-offset: 1px; position: relative; z-index: 1; }
+  #pixelCard .axis { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); }
+  .gl { stroke: var(--line); } .gt { fill: var(--muted); } .gd { stroke: var(--line2); }
+  #pixelCard svg { display: block; width: 100%; height: 36px; margin-top: 6px; }
+  #hint { left: 50%; transform: translateX(-50%); bottom: 104px; padding: 7px 14px; font-size: 12px; color: var(--muted);
+    border-radius: 999px; transition: opacity .4s; }
+
+  /* ---- About ---- */
+  #about { position: fixed; inset: 0; z-index: 50; background: rgba(20,20,18,.45); display: none; align-items: center; justify-content: center; padding: 16px; }
+  #about.open { display: flex; }
+  #about .box { background: var(--bg); border-radius: 14px; max-width: 620px; width: 100%; max-height: calc(100% - 32px); overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,.3); border-top: 6px solid var(--red); padding: 22px 26px 20px; position: relative; }
+  #about h2 { margin: 0 0 6px; font-size: 22px; }
+  #about h3 { margin: 18px 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  #about p, #about li { font-size: 14px; }
+  #about ul { padding-left: 18px; margin: 6px 0; }
+  #about .close { position: absolute; top: 12px; right: 14px; border: 0; background: none; font-size: 24px; cursor: pointer; color: var(--muted); }
+  #about .logos { display: flex; gap: 20px; align-items: center; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); }
+  #about .go { margin-top: 16px; background: var(--red); color: #fff; border: 0; border-radius: 999px; padding: 9px 20px; font-weight: 700; cursor: pointer; }
+
+  @media (max-width: 760px) {
+    #topbar { display: flex; }
+    #brand h1, #brand .sub { display: none; }
+    #brand { padding: 12px 20px; }
+    #brand .links { margin-top: 0; }
+    #sidebar { position: absolute; z-index: 15; top: 0; bottom: 0; left: 0; width: min(320px, 88vw); box-shadow: var(--shadow); transform: translateX(-105%); transition: transform .2s; }
+    #sidebar.open { transform: none; }
+    #main { position: relative; }
+    #search { width: calc(100% - 116px); }
+    #layersBtn { display: block; top: 12px; right: 12px; border: 0; padding: 11px 14px; font-weight: 700; cursor: pointer; }
+    #layerCtl { top: 60px; width: 220px; display: none; }
+    #layerCtl.open { display: block; }
+    #timeline { gap: 10px; padding: 10px 14px 8px 10px; }
+    #yearBox { width: 64px; }
+    #yearLabel { font-size: 22px; }
+    #sensorLabel { font-size: 10px; white-space: normal; line-height: 1.2; }
+    #track { margin: 0 8px; }
+    .band { font-size: 8px; letter-spacing: .04em; }
+    #play { width: 40px; height: 40px; }
+    .tlabel:not(.mobile) { display: none; }
+    #pixelCard { left: 12px; right: 12px; width: auto; }
+  }
+  @media (max-width: 400px) {
+    #topbar h1 { font-size: 13px; }
+    #topbar nav button.txt { padding: 5px 8px; }
+  }
+  /* Short screens: smaller logos so the legend keeps room. */
+  @media (max-height: 700px) and (min-width: 761px) {
+    #brand { padding-top: 16px; } #brand h1 { font-size: 21px; }
+    #panelFoot { flex-direction: row; align-items: center; padding: 8px 20px; gap: 14px; }
+    #panelFoot .eoa { height: 20px; } #panelFoot .agro { height: 28px; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <header id="topbar">
+    <h1>Crop and Grassland Maps of Switzerland</h1>
+    <nav>
+      <button id="legendBtn" class="txt" type="button">Legend</button>
+      <button class="aboutBtn txt" type="button">About</button>
+    </nav>
+    <img class="logo-light" src="img/eoa.png" alt="EOA – Earth Observation of Agroecosystems team">
+    <img class="logo-dark" src="img/eoa_neg.png" alt="EOA – Earth Observation of Agroecosystems team">
+  </header>
+
+  <div id="main">
+    <aside id="sidebar">
+      <div id="brand">
+        <h1>Crop and Grassland<br>Maps of Switzerland</h1>
+        <div class="sub">Annual maps 1985–2025<br>Landsat 30 m · Sentinel-2 10 m</div>
+        <nav class="links">
+          <button class="aboutBtn" type="button">About</button>
+          <a href="https://www.eoa-team.net/projects/crop1990/" target="_blank" rel="noopener">Project ↗</a>
+          <a href="https://huggingface.co/datasets/EOA-team/SwissCropGrasslandMaps" target="_blank" rel="noopener">Data ↗</a>
+          <button class="themeBtn" type="button" aria-label="Switch to dark mode" title="Dark / bright mode"><svg class="sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="3"/><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9 13 13M3 13l1.1-1.1M11.9 4.1 13 3"/></svg><svg class="moon" viewBox="0 0 16 16" fill="currentColor"><path d="M13.5 10.2A5.8 5.8 0 0 1 5.8 2.5a5.8 5.8 0 1 0 7.7 7.7z"/></svg></button>
+        </nav>
+      </div>
+      <div id="areaBox">
+        <div class="title" id="areaTitle">Mapped area (km²)</div>
+        <svg id="areaChart" viewBox="0 0 268 140"></svg>
+        <div id="areaTip"></div>
+        <div class="key" id="areaKey"></div>
+      </div>
+      <div id="legendScroll">
+      <div id="legendHead">
+        <h2>Legend</h2>
+        <div class="actions">
+          <button id="collapseAll" type="button">Collapse all</button>
+          <button id="showAll" type="button" style="display:none">Clear selection</button>
+        </div>
+      </div>
+      <div id="legend"></div>
+      </div>
+      <div id="panelFoot">
+        <img class="eoa logo-light" src="img/eoa_text.png" alt="EOA – Earth Observation of Agroecosystems team">
+        <img class="eoa logo-dark" src="img/eoa_text_neg.png" alt="EOA – Earth Observation of Agroecosystems team">
+        <img class="agro logo-light" src="img/agroscope.png" alt="Swiss Confederation – Agroscope">
+        <img class="agro logo-dark" src="img/agroscope_neg.png" alt="Swiss Confederation – Agroscope">
+      </div>
+    </aside>
+
+    <div id="map">
+      <div id="search" class="card">
+        <input id="searchInput" type="search" placeholder="Search a place or address" autocomplete="off" aria-label="Search a place">
+        <div id="searchResults"></div>
+      </div>
+
+      <div id="layerCtl" class="card">
+        <div class="lbl">Map</div>
+        <div class="seg two" id="modeSeg">
+          <button type="button" data-mode="0">Classes</button>
+          <button type="button" data-mode="1">Confidence</button>
+        </div>
+        <div id="confLegend"><div class="bar"></div><div class="ends"><span>0 %</span><span>Confidence</span><span>100 %</span></div></div>
+        <div class="lbl">Background</div>
+        <div class="seg two" id="baseSeg">
+          <button type="button" data-base="cantons">Cantons</button>
+          <button type="button" data-base="grey">Map</button>
+          <button type="button" data-base="aerial">Aerial today</button>
+          <button type="button" data-base="hist">Aerial that year</button>
+        </div>
+        <div class="op"><span class="lbl" style="margin:0">Opacity</span>
+          <input id="opacity" type="range" min="0" max="100" value="100" aria-label="Opacity"></div>
+        <div id="credits">Basemaps and boundaries © <a href="https://www.swisstopo.admin.ch/" target="_blank" rel="noopener">swisstopo</a></div>
+      </div>
+      <button id="layersBtn" class="card" type="button" aria-label="Layers">Layers</button>
+
+      <div id="hint" class="card">Click the map to see the history of a pixel</div>
+
+      <div id="pixelCard" class="card" aria-live="polite"></div>
+
+      <div id="timeline" class="card">
+        <button id="play" type="button" aria-label="Play"></button>
+        <div id="yearBox"><div id="yearLabel"></div><div id="sensorLabel"></div></div>
+        <div id="track" role="slider" tabindex="0" aria-label="Year" aria-valuemin="1985" aria-valuemax="2025">
+          <div id="rail"></div><div id="fill"></div>
+          <div id="ticks"></div>
+          <div id="bandL" class="band">Landsat · 30 m</div>
+          <div id="bandS" class="band">Sentinel-2 · 10 m</div>
+          <div id="handle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="about" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+  <div class="box">
+    <button class="close" type="button" aria-label="Close">×</button>
+    <h2 id="aboutTitle">Crop and Grassland Maps of Switzerland</h2>
+    <p>Annual maps of 51 crop, grassland and land cover classes for all of Switzerland from 1985 to 2025.
+      The maps are based on Landsat (30 m) up to 2017 and on Sentinel-2 (10 m) from 2018.</p>
+    <h3>How to use</h3>
+    <ul>
+      <li>Move the timeline or press play to step through the years.</li>
+      <li>Click the map to see the class history of a pixel over all years.</li>
+      <li>Click classes or group names in the legend to show only those, and to see their mapped area over time.
+        Collapse a group to show all its classes in one colour.</li>
+      <li><b>Confidence</b> shows the calibrated model probability of the shown class.</li>
+      <li>The current view can be shared by copying the link.</li>
+    </ul>
+    <h3>Funding</h3>
+    <p>This work was financed by the Swiss Federal Office for the Environment (FOEN).</p>
+    <h3>Data and credits</h3>
+    <p>The maps can be downloaded from
+      <a href="https://huggingface.co/datasets/EOA-team/SwissCropGrasslandMaps" target="_blank" rel="noopener">Hugging Face</a>
+      (CC BY 4.0). More on the
+      <a href="https://www.eoa-team.net/projects/crop1990/" target="_blank" rel="noopener">project page</a>.
+      Basemaps and boundaries © swisstopo. Contains modified Copernicus Sentinel data (2016–2025).
+      Landsat data courtesy of the U.S. Geological Survey.</p>
+    <div class="logos">
+      <img class="logo-light" src="img/eoa_text.png" alt="EOA – Earth Observation of Agroecosystems team" style="height:30px">
+      <img class="logo-dark" src="img/eoa_text_neg.png" alt="EOA – Earth Observation of Agroecosystems team" style="height:30px">
+      <img class="logo-light" src="img/agroscope.png" alt="Swiss Confederation – Agroscope" style="height:36px">
+      <img class="logo-dark" src="img/agroscope_neg.png" alt="Swiss Confederation – Agroscope" style="height:36px">
+    </div>
+    <button class="go" type="button">Explore the maps</button>
+  </div>
+</div>
+
+<script>
+  // The GeoTIFF decoder starts one web worker per CPU core. On machines with
+  // many cores (e.g. 64) that many workers can crash the tab, so cap it at 8.
+  try {
+    if ((navigator.hardwareConcurrency || 0) > 8) {
+      Object.defineProperty(navigator, 'hardwareConcurrency', {get: () => 8});
+    }
+  } catch (e) { /* not critical */ }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/proj4@2.12.1/dist/proj4.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ol@10.2.1/dist/ol.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/geotiff@2.1.3/dist-browser/geotiff.js"></script>
+<script src="legend.js"></script>
+<script src="ch_boundary.js"></script>
+<script src="canton_borders.js"></script>
+<script src="class_areas.js"></script>
+<script src="map.js"></script>
+</body>
+</html>
